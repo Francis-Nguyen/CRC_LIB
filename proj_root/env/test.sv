@@ -2,9 +2,11 @@ typedef class test;
 `include "env.sv"
 `include "virt_sequence.sv"
 `include "crc_test_00.sv"
+`include "crc_test_01.sv"
 class test extends uvm_test;
 	env crc_env;
 	crc_test_00	test_00;
+	crc_test_01	test_01;
 	`uvm_component_utils_begin(test)
 			`uvm_field_object(crc_env, UVM_ALL_ON)
 			`uvm_field_object(test_00, UVM_ALL_ON)
@@ -27,6 +29,12 @@ class test extends uvm_test;
 			begin
 				test_00	= crc_test_00::type_id::create("crc_test_00", this);
 				test_00.start(this.crc_env.crc_sequencer);
+			end
+			`endif
+		`ifdef crc_test_01
+			begin
+				test_01	= crc_test_01::type_id::create("crc_test_01", this);
+				test_01.start(this.crc_env.crc_sequencer);
 			end
 			`endif
 		`uvm_info("TEST", "run phase exiting.................", UVM_LOW);
