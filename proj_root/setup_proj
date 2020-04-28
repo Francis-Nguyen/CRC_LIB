@@ -1,0 +1,9 @@
+#!/bin/csh -f
+set cygwin_dir 	= `pwd`
+#echo $cygwin_dir
+set win_trimHD	= `echo $cygwin_dir | awk '{print substr($0, 11, 1)}'`
+set win_trimURL	= `echo $cygwin_dir | awk '{print substr($0, 12)}'`
+set win_addDot	= :
+set PROJ_ROOT=$win_trimHD$win_addDot$win_trimURL
+#export PROJ_ROOT=$win_trimHD$win_addDot$win_trimURL
+echo $PROJ_ROOT
