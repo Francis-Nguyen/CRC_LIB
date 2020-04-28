@@ -1,5 +1,6 @@
 `ifndef VIRT_SEQUENCE
 `define VIRT_SEQUENCE
+`include "crc_lib.sv"
 class virt_sequence extends uvm_sequence#(uvm_sequence_item);
   `uvm_object_utils(virt_sequence)
 	`uvm_declare_p_sequencer(sequencer)
