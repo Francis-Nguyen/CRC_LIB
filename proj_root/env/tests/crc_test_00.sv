@@ -15,7 +15,14 @@ class crc_test_00 extends virt_sequence;
 				begin
 					data.push_back($random());		
 				end
+
+			// Generate CRC
 			_crc16_obj.data_buffer = data;
+			_crc16_obj.crc16_calculate();
+			_crc16_obj.print();
+			`uvm_info(this.get_name(), $psprintf("CRC_OUT=0x%x", _crc16_obj.crc_data), UVM_LOW);
+			// Change 1 bit and check CRC again
+			_crc16_obj.data_buffer[1][5] = ~_crc16_obj.data_buffer[1][5];
 			_crc16_obj.crc16_calculate();
 			_crc16_obj.print();
 			`uvm_info(this.get_name(), $psprintf("CRC_OUT=0x%x", _crc16_obj.crc_data), UVM_LOW);
