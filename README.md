@@ -13,4 +13,5 @@ URL:
 1. ./setup_proj
 2. cd sim
 3. make clean
-4. make all TEST_NAME=
+4. - make all TEST_NAME=crc_test_00
+   - or make all TEST_NAME=crc_test_01
