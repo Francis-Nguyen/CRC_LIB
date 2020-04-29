@@ -117,7 +117,7 @@ class crc_lib#(parameter int DWITH=8, int CRC=16) extends uvm_object;
 						`uvm_error(_rhs.get_name(), "is not object type");
 						return 0;
 					end
-					
+					else	
 					if(!this.compare(_rhs)) begin
 						if(this.crc_data != _rhs.crc_data) begin
 							foreach(_rhs.data_buffer[i]) begin
@@ -126,7 +126,10 @@ class crc_lib#(parameter int DWITH=8, int CRC=16) extends uvm_object;
 								end		
 							end
 						end
+						return 0;
 					end
+					else
+						return 1;
 			end
 		endfunction: crc_check
 
