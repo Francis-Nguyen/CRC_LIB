@@ -110,5 +110,25 @@ class crc_lib#(parameter int DWITH=8, int CRC=16) extends uvm_object;
 				this.data_buffer = {};
 		endfunction: delete_buff
 
+		virtual function bit crc_check(uvm_object rhs);
+			begin
+					crc_lib#(8, 16) _rhs;
+					if(!$cast(_rhs, rhs)) begin
+						`uvm_error(_rhs.get_name(), "is not object type");
+						return 0;
+					end
+					
+					if(!this.compare(_rhs)) begin
+						if(this.crc_data != _rhs.crc_data) begin
+							foreach(_rhs.data_buffer[i]) begin
+								if(_rhs.data_buffer[i] != this.data_buffer[i]) begin
+									`uvm_error("DATA CHECK", $psprintf("[exp][%0d][0x%x]<-->[act][%0d][0x%x]", i, _rhs.data_buffer[i], i, this.data_buffer[i]));
+								end		
+							end
+						end
+					end
+			end
+		endfunction: crc_check
+
 endclass: crc_lib
 `endif

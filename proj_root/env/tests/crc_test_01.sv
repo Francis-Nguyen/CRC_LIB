@@ -7,6 +7,7 @@ class crc_test_01 extends virt_sequence;
 
 	virtual task body();
 		logic [7:0]	data[$];
+		bit result;
 		crc_lib#(8, 16) _crc16_obj;
 		crc_lib#(8, 16) _crc16_obj1;
 		begin
@@ -22,18 +23,13 @@ class crc_test_01 extends virt_sequence;
 			_crc16_obj.data_buffer = data;
 			_crc16_obj.crc16_calculate();
 			_crc16_obj.print();
-			`uvm_info(this.get_name(), $psprintf("CRC_OUT=0x%x", _crc16_obj.crc_data), UVM_LOW);
 			// Generate CRC
 			_crc16_obj1.data_buffer = data;
 			_crc16_obj1.data_buffer[1][5] = ~_crc16_obj1.data_buffer[1][5];
 			_crc16_obj1.crc16_calculate();
 			_crc16_obj1.print();
-			`uvm_info(this.get_name(), $psprintf("CRC_OUT=0x%x", _crc16_obj1.crc_data), UVM_LOW);
 			// Change 1 bit and check CRC again
-			if(_crc16_obj.crc_data != _crc16_obj1.crc_data)
-				begin
-					_crc16_obj.compare(_crc16_obj1);
-				end
+			result = _crc16_obj1.crc_check(_crc16_obj);
 			_crc16_obj1.delete_buff();
 			_crc16_obj.delete_buff();
 		`uvm_info(this.get_name(), "BODY EXIT", UVM_LOW)
