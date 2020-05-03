@@ -7,10 +7,10 @@ class crc_test_00 extends virt_sequence;
 
 	virtual task body();
 		logic [7:0]	data[$];
-		crc_lib#(8, 16) _crc16_obj;
+		crc_generator#(8, 16) _crc16_obj;
 		begin
 		`uvm_info(this.get_name(), "BODY ENTER", UVM_LOW)
-			_crc16_obj = crc_lib#(8, 16)::type_id::create("_crc16_obj");
+			_crc16_obj = crc_generator#(8, 16)::type_id::create("_crc16_obj");
 			for(int i=0; i<16; i++)
 				begin
 					data.push_back($random());		

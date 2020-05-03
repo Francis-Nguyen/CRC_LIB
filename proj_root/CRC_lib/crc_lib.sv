@@ -1,16 +1,23 @@
+///////////////////////////////////
+//	Class: CRC_GENERATOR
+//	Author: TuyenND	
+//	First Create: 2020/04/01
+//	Modified:
+//
+///////////////////////////////////
 `ifndef CRC_LIB
-class crc_lib#(parameter int DWITH=8, int CRC=16) extends uvm_object;
+class crc_generator#(parameter int DWITH=8, int CRC=16) extends uvm_object;
 		
 		logic [DWITH-1:0] data_buffer[$];
 		logic	[CRC-1:0] crc_data;
 
-		`uvm_object_utils_begin(crc_lib#(DWITH, CRC))
+		`uvm_object_utils_begin(crc_generator#(DWITH, CRC))
 				`uvm_field_queue_int(data_buffer, UVM_ALL_ON)
 				`uvm_field_int(crc_data, UVM_ALL_ON)
 		`uvm_object_utils_end
 
 
-		function new(string name="crc_lib");
+		function new(string name="crc_generator");
 			super.new(name);
 		endfunction: new
 
@@ -112,7 +119,7 @@ class crc_lib#(parameter int DWITH=8, int CRC=16) extends uvm_object;
 
 		virtual function bit crc_check(uvm_object rhs);
 			begin
-					crc_lib#(8, 16) _rhs;
+					crc_generator#(DWITH, CRC) _rhs;
 					if(!$cast(_rhs, rhs)) begin
 						`uvm_error(_rhs.get_name(), "is not object type");
 						return 0;
@@ -133,5 +140,5 @@ class crc_lib#(parameter int DWITH=8, int CRC=16) extends uvm_object;
 			end
 		endfunction: crc_check
 
-endclass: crc_lib
+endclass: crc_generator
 `endif

@@ -8,12 +8,12 @@ class crc_test_01 extends virt_sequence;
 	virtual task body();
 		logic [7:0]	data[$];
 		bit result;
-		crc_lib#(8, 16) _crc16_obj;
-		crc_lib#(8, 16) _crc16_obj1;
+		crc_generator#(8, 16) _crc16_obj;
+		crc_generator#(8, 16) _crc16_obj1;
 		begin
 		`uvm_info(this.get_name(), "BODY ENTER", UVM_LOW)
-			_crc16_obj = crc_lib#(8, 16)::type_id::create("_crc16_obj");
-			_crc16_obj1 = crc_lib#(8, 16)::type_id::create("_crc16_obj1");
+			_crc16_obj = crc_generator#(8, 16)::type_id::create("_crc16_obj");
+			_crc16_obj1 = crc_generator#(8, 16)::type_id::create("_crc16_obj1");
 			for(int i=0; i<16; i++)
 				begin
 					data.push_back($random());		
